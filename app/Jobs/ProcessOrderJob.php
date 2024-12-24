@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Exceptions\Order\OrderAlreadyProcessedException;
 use App\Models\Order;
 use App\Services\InvoiceService;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -30,6 +31,8 @@ class ProcessOrderJob implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @throws OrderAlreadyProcessedException
      */
     public function handle(): void
     {
