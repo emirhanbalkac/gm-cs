@@ -15,10 +15,7 @@ class CreateProductRequest extends BaseRequest
     public function rules(): array
     {
         return [
-          'name'       => ['required', 'string'],
-          'unit_price' => ['required', 'numeric'],
-          'vat'        => ['nullable', 'numeric'],
-          'discount'   => ['nullable', 'numeric']
+          'name'       => ['required', 'string']
         ];
     }
 }
