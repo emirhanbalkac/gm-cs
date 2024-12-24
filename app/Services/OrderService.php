@@ -32,9 +32,9 @@ class OrderService extends BaseService
 
                 $this->createOrderLine($order, $line);
 
-                $grandTotal += ($line['unit_price'] * $line['quantity'])
-                  * (1 + $line['vat'] / 100)
+                $totalAmount = ($line['unit_price'] * $line['quantity'])
                   * (1 - $line['discount'] / 100);
+                $grandTotal += $totalAmount * (1 + $line['vat'] / 100);
             }
 
             $order->update(['grand_total' => $grandTotal]);
