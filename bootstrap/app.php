@@ -5,7 +5,6 @@ use App\Utils\ResponseUtil;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Support\Facades\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -19,14 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
                       //
                   })
                   ->withExceptions(function (Exceptions $exceptions) {
-                      $exceptions->shouldRenderJsonWhen(function (Request $request, Throwable $e) {
-                          if ($request->is('api/*')) {
-                              return false;
-                          }
-
-                          return $request->expectsJson();
-                      });
-
                       $exceptions->render(function (BaseException $e) {
                           return response()->json(
                             data:    ResponseUtil::sendError($e->getMessage()),
