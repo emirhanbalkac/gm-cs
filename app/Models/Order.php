@@ -10,7 +10,8 @@ class Order extends BaseModel
 
     protected $fillable = [
       'order_date',
-      'status'
+      'status',
+      'grand_total'
     ];
 
     public function lines(): HasMany

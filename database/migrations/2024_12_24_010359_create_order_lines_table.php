@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->bigInteger('order_id');
             $table->bigInteger('product_id');
             $table->integer('quantity');
-            $table->decimal('price');
+            $table->decimal('unit_price');
             $table->decimal('vat');
             $table->decimal('discount');
 
