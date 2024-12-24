@@ -2,13 +2,22 @@
 
 namespace App\Services;
 
+use App\Enums\OrderStatus;
+use App\Exceptions\Order\OrderAlreadyProcessedException;
+use App\Exceptions\Order\OrderNotFoundException;
 use App\Exceptions\Product\ProductNotFoundException;
+use App\Jobs\ProcessOrderJob;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class OrderService extends BaseService
 {
+    /**
+     * @param array $data
+     *
+     * @return Order
+     */
     public function createOrder(array $data): Order
     {
         return DB::transaction(function () use ($data) {
@@ -44,6 +53,12 @@ class OrderService extends BaseService
         }
     }
 
+    /**
+     * @param Order $order
+     * @param array $line
+     *
+     * @return void
+     */
     private function createOrderLine(Order $order, array $line): void
     {
         $order->lines()
@@ -54,5 +69,23 @@ class OrderService extends BaseService
                          'vat'        => $line['vat'],
                          'discount'   => $line['discount']
                        ]);
+    }
+
+    /**
+     * @param int   $id
+     * @param array $data
+     *
+     * @return void
+     * @throws OrderAlreadyProcessedException
+     * @throws OrderNotFoundException
+     */
+    public function processOrder(int $id, array $data): void
+    {
+        $order = Order::find($id);
+        if (empty($order)) {
+            throw new OrderNotFoundException();
+        }
+
+        ProcessOrderJob::dispatch($order, $data);
     }
 }

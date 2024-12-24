@@ -12,4 +12,5 @@ Route::get('/user', function (Request $request) {
 Route::group([], function () {
     Route::post('products', [ProductController::class, 'createProduct']);
     Route::post('orders', [OrderController::class, 'store']);
+    Route::post('orders/{id}/process', [OrderController::class, 'processOrder']);
 });
