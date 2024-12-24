@@ -12,4 +12,13 @@ class ResponseUtil
           'message' => $message
         ];
     }
+
+    public static function sendError(?string $message = null, ?array $errors = null): array
+    {
+        return [
+          'success' => false,
+          'message' => $message,
+          'errors'  => $errors
+        ];
+    }
 }
