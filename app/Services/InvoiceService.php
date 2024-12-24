@@ -30,9 +30,7 @@ class InvoiceService extends BaseService
                               'grand_total'  => $order->grand_total
                             ]);
 
-            $order->update([
-                             'status' => OrderStatus::COMPLETED
-                           ]);
+            $order->update(['status' => OrderStatus::COMPLETED]);
         });
     }
 }
