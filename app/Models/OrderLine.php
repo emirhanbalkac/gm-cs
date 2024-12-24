@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class OrderLine extends BaseModel
 {
     protected $table = 'order_lines';
@@ -14,4 +16,9 @@ class OrderLine extends BaseModel
       'vat',
       'discount'
     ];
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
 }
