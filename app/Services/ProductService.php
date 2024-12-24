@@ -6,11 +6,13 @@ use App\Models\Product;
 
 class ProductService extends BaseService
 {
+    /**
+     * @param array $data
+     *
+     * @return Product
+     */
     public function createProduct(array $data): Product
     {
-        $product = new Product($data);
-        $product->save();
-
-        return $product;
+        return Product::create($data);
     }
 }

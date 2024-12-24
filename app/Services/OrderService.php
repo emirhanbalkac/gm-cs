@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Enums\OrderStatus;
 use App\Exceptions\Order\OrderAlreadyProcessedException;
 use App\Exceptions\Order\OrderNotFoundException;
 use App\Exceptions\Product\ProductNotFoundException;
